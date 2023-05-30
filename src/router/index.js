@@ -35,11 +35,11 @@ const router = createRouter({
                     name: 'indexManagement',
                     component: () => import('@/views/uikit/IndexManagement.vue')
                 },
-                {
-                    path: '/uikit/userManagement',
-                    name: 'userManagement',
-                    component: () => import('@/views/uikit/UserManagement.vue')
-                },
+                // {
+                //     path: '/uikit/userManagement',
+                //     name: 'userManagement',
+                //     component: () => import('@/views/uikit/UserManagement.vue')
+                // },
                 {
                     path: '/uikit/list',
                     name: 'list',
