@@ -40,11 +40,11 @@ const router = createRouter({
                 //     name: 'userManagement',
                 //     component: () => import('@/views/uikit/UserManagement.vue')
                 // },
-                {
-                    path: '/uikit/list',
-                    name: 'list',
-                    component: () => import('@/views/uikit/List.vue')
-                },
+                // {
+                //     path: '/uikit/list',
+                //     name: 'list',
+                //     component: () => import('@/views/uikit/List.vue')
+                // },
             ]
         },       
         // {
