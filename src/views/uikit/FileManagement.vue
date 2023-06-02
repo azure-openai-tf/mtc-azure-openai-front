@@ -172,19 +172,19 @@ const onUpload = async (e) => {
         <div class="card p-fluid" >
             
             <h3>파일첨부 </h3>            
-            <h6>컨테이너 목록</h6> 
+            <h6>폴더 목록</h6> 
             <div class="field">
                 <Dropdown id="state" v-model="selectedIndexOption" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
             </div>
             <div class="field">
-                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="pdf/*" :maxFileSize="1000000" customUpload />
+                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="application/pdf" :maxFileSize="1000000" customUpload />
             </div>
            
         </div>
  
         <div class="card p-fluid">            
-            <h3>컨테이너 관리 </h3>  
-                <h6>컨테이너 생성</h6>
+            <h3>폴더 관리 </h3>  
+                <h6>폴더 생성</h6>
                 <div class="field">
                     <InputText id="newContainerName" type="text"></InputText>
                 </div>
@@ -192,7 +192,7 @@ const onUpload = async (e) => {
                     <Button label="생성" class="p-button-success mr-3 mb-3" @click="createContainer()"/>                
                 </div>
                 
-                <h6>컨테이너 삭제</h6>                
+                <h6>폴더 삭제</h6>                
                 <div class="field">
                     <Dropdown id="state" v-model="selectedIndexOption2" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
                     <ConfirmDialog></ConfirmDialog>

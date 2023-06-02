@@ -9,17 +9,17 @@ export default {
         FileManagement.vue
       */     
       //파일 업로드
-      target_container_is_not_selected: "업로드할 컨테이너를 선택하세요.",
+      target_container_is_not_selected: "업로드할 폴더를 선택하세요.",
       upload_success: "업로드 성공.",
 
       //컨테이너 관리
-      containerNameIsNotSelected: "생성할 컨테이너의 이름을 입력하세요.",
-      containerCreateFail: "컨테이너 생성에 실패하였습니다.",
+      containerNameIsNotSelected: "생성할 폴더의 이름을 입력하세요.",
+      containerCreateFail: "폴더 생성에 실패하였습니다.",
 
-      containerDeleteWarning: "컨테이너 안에 들어있는 모든 파일이 삭제되며 복구 할 수 없습니다. 컨테이너를 삭제하시겠습니까?",
+      containerDeleteWarning: "폴더 안에 들어있는 모든 파일이 삭제되며 복구 할 수 없습니다. 폴더를 삭제하시겠습니까?",
 
-      containerIsNotSeleted: "삭제할 컨테이너를 선택하세요.",
-      containerDeleteFail: "컨테이너 삭제를 실패하였습니다.",
+      containerIsNotSeleted: "삭제할 폴더를 선택하세요.",
+      containerDeleteFail: "폴더 삭제를 실패하였습니다.",
 
 
       /*
@@ -31,8 +31,8 @@ export default {
    },
    success:{
       //컨테이너 관리
-      containerCreateSuccess: "컨테이너가 생성 되었습니다.",
-      containerDeleteSuccess: "컨테이너가 삭제 되었습니다.",
+      containerCreateSuccess: "폴더가 생성 되었습니다.",
+      containerDeleteSuccess: "폴더가 삭제 되었습니다.",
    },
   };
   
