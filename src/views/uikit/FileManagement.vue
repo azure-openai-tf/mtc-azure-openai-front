@@ -177,7 +177,7 @@ const onUpload = async (e) => {
                 <Dropdown id="state" v-model="selectedIndexOption" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
             </div>
             <div class="field">
-                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="application/pdf" :maxFileSize="1000000" customUpload />
+                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept=".pdf, .csv, .docx, .doc, .xlsx, .xls, .txt" :maxFileSize="1000000" customUpload />
             </div>
            
         </div>
