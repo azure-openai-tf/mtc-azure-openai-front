@@ -58,14 +58,13 @@ const getIndexerStatus = async (e) => {
             const response = await axios.get(url, {
                 params: {
                 },
-            });        
-            
-            indexerStatusResultMessage.value = response.data.status;
-                
+            });
+
+            indexerStatusResultMessage.value = response.data.last_result.status;
+    
         }
         
     } catch (error) {
-        console.log("error : " , error)
         toast.add({ severity: 'error', summary: 'Fail', detail: '[CODE:I003]' + commonMsg.errors.common_msg , life: 5000 });  
     }
 
