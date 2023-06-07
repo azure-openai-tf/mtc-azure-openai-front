@@ -1,24 +1,30 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
 
+function isLoggedIn() {  
+    return localStorage.getItem("isLoggedIn") === "true";  
+}  
+    
+function getUserRole() {      
+    return localStorage.getItem("userRole");  
+}  
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         {
             path: '/',
             component: AppLayout,
-            children: [
-                /* 대시보드 개발 완료 시 추가 
+            children: [ 
                 {
-                    path: '/',
-                    name: 'dashboard',
-                    component: () => import('@/views/Dashboard.vue')
+                    path: '',
+                    name: 'login',
+                    component: () => import('@/views/pages/auth/Login.vue')
                 },
-                */
                 {
-                    path: '/',
-                    name: 'message2',
-                    component: () => import('@/views/uikit/Messages.vue')
+                    path: '',
+                    name: 'access',
+                    component: () => import('@/views/pages/auth/Access.vue')
                 },
                 {
                     path: '/uikit/message',
@@ -34,35 +40,32 @@ const router = createRouter({
                     path: '/uikit/indexManagement',
                     name: 'indexManagement',
                     component: () => import('@/views/uikit/IndexManagement.vue')
-                },
-                // {
-                //     path: '/uikit/userManagement',
-                //     name: 'userManagement',
-                //     component: () => import('@/views/uikit/UserManagement.vue')
-                // },
-                // {
-                //     path: '/uikit/list',
-                //     name: 'list',
-                //     component: () => import('@/views/uikit/List.vue')
-                // },
+                }, 
             ]
-        },       
-        // {
-        //     path: '/auth/login',
-        //     name: 'login',
-        //     component: () => import('@/views/pages/auth/Login.vue')
-        // },
-        // {
-        //     path: '/auth/access',
-        //     name: 'accessDenied',
-        //     component: () => import('@/views/pages/auth/Access.vue')
-        // },
-        // {
-        //     path: '/auth/error',
-        //     name: 'error',
-        //     component: () => import('@/views/pages/auth/Error.vue')
-        // }
+        },        
     ]
 });
 
+
+router.beforeEach((to, from, next) => {  
+    
+    if (!isLoggedIn() && to.name !== "login") { 
+        next({ name: "login" });      
+    } else if (isLoggedIn() && getUserRole() === "user") {      
+        if(to.name == "fileManagement"){
+            next({ name: "access" });
+        }else if(to.name == "indexManagement"){
+            next({ name: "access" });
+        }else if(to.name == "userManagement"){
+            next({ name: "access" });
+        }else{
+            next();
+        }    
+    } else if (isLoggedIn() && getUserRole() === "admin") {
+        next();
+    } else {  
+        next();      
+    }      
+  });  
+     
 export default router;

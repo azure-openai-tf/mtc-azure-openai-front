@@ -3,8 +3,22 @@ import { computed, watch, ref } from 'vue';
 import AppTopbar from './AppTopbar.vue';
 import AppFooter from './AppFooter.vue';
 import AppSidebar from './AppSidebar.vue';
-// import AppConfig from './AppConfig.vue';
 import { useLayout } from '@/layout/composables/layout';
+import { useRouter } from "vue-router";  
+  
+const router = useRouter();  
+  
+const isLoginAndAccessDenyPage = computed(() => {  
+  const currentRoutName = router.currentRoute.value.name ;
+  if(currentRoutName === "login"){
+    return true;
+  }else if(currentRoutName === "access"){
+    return true;
+  }else{
+    return false;
+  }
+});  
+
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout();
 
@@ -31,6 +45,9 @@ const containerClass = computed(() => {
         'p-ripple-disabled': !layoutConfig.ripple.value
     };
 });
+
+
+
 const bindOutsideClickListener = () => {
     if (!outsideClickListener.value) {
         outsideClickListener.value = (event) => {
@@ -56,21 +73,19 @@ const isOutsideClicked = (event) => {
     return !(sidebarEl.isSameNode(event.target) || sidebarEl.contains(event.target) || topbarEl.isSameNode(event.target) || topbarEl.contains(event.target));
 };
 </script>
-
-<template>
-    <div class="layout-wrapper" :class="containerClass">
-        <app-topbar></app-topbar>
-        <div class="layout-sidebar">
-            <app-sidebar></app-sidebar>
-        </div>
-        <div class="layout-main-container">
-            <div class="layout-main">
-                <router-view></router-view>
-            </div>
-            <app-footer></app-footer>
-        </div>
-        <div class="layout-mask"></div>
-    </div>
-</template>
-
+<template>  
+    <div class="layout-wrapper" :class="containerClass">  
+        <app-topbar v-if="!isLoginAndAccessDenyPage"></app-topbar>  
+        <div class="layout-sidebar" v-if="!isLoginAndAccessDenyPage">  
+            <app-sidebar></app-sidebar>  
+        </div>          
+        <div :class="isLoginAndAccessDenyPage ? '' : 'layout-main-container'">  
+            <div class="layout-main">  
+                <router-view></router-view>  
+            </div>  
+            <app-footer v-if="!isLoginAndAccessDenyPage"></app-footer>  
+        </div>  
+        <div class="layout-mask"></div>  
+    </div>  
+</template>  
 <style lang="scss" scoped></style>
