@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch   } from 'vue';
 import axios from "axios";
 import { API_BASE_URL } from '../../config/api-config.js'
 import commonMsg from '../../lang/messages.js';
@@ -16,11 +16,20 @@ const toast = useToast();
 const dropdownItems = ref([]);
 const selectedIndexOption = ref('');
 const selectedIndexOption2 = ref('');
+const newContainerName = ref('');
 
 onMounted(async () => {
     getContainerList();
 })
 
+watch(newContainerName, (newVal) => {
+    newContainerName.value = newVal.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+});
+
+const preventKoreanInput = (event) => {
+    event.target.value = event.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+    newContainerName.value = event.target.value;
+}
 
 const getContainerList = async (e) => { 
     
@@ -186,10 +195,10 @@ const onUpload = async (e) => {
             <h3>폴더 관리 </h3>  
                 <h6>폴더 생성</h6>
                 <div class="field">
-                    <InputText id="newContainerName" type="text"></InputText>
+                        <InputText id="newContainerName" type="text" v-model="newContainerName" @input="preventKoreanInput"></InputText>
                 </div>
                 <div class="field">
-                    <Button label="생성" class="p-button-success mr-3 mb-3" @click="createContainer()"/>                
+                    <Button label="생성" class="p-button-success mr-3 mb-3" @click="createContainer()" />                
                 </div>
                 
                 <h6>폴더 삭제</h6>                

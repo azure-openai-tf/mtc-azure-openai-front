@@ -1,24 +1,46 @@
 <script setup>
-import { ref } from 'vue';
-
+import { ref, computed } from "vue";  
 import AppMenuItem from './AppMenuItem.vue';
 
-const model = ref([
-    // {
-    //     label: 'Home',
-    //     items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
-    // },
-    {
-        label: 'Managements',
-        items: [
-            // { label: 'User Manage', icon: 'pi pi-fw pi-id-card', to: '/uikit/usermanagement' },
-            // { label: 'List', icon: 'pi pi-fw pi-list', to: '/uikit/list' },            
-            { label: 'Chatting', icon: 'pi pi-fw pi-comment', to: '/uikit/message' },
-            { label: 'File & Container Management', icon: 'pi pi-fw pi-file', to: '/uikit/fileManagement' },
-            { label: 'Index Management', icon: 'pi pi-fw pi-file', to: '/uikit/indexManagement' },
-        ]
-    },
-]);
+function getUserRole() {  
+  return localStorage.getItem("userRole");  
+}  
+  
+const model = computed(() => {  
+    const role = getUserRole();  
+    const baseMenu = [  
+        {  
+            label: "Chat",  
+            items: [  
+                {  
+                    label: "Chatting",  
+                    icon: "pi pi-fw pi-comment",  
+                    to: "/uikit/message",  
+                },  
+            ],  
+        },  
+    ];  
+
+    if (role === "admin") {  
+        baseMenu.push({  
+            label: "Managements",  
+            items: [  
+                {  
+                    label: "File & Container Management",  
+                    icon: "pi pi-fw pi-file",  
+                    to: "/uikit/fileManagement",  
+                },  
+                {  
+                    label: "Index Management",  
+                    icon: "pi pi-fw pi-file",  
+                    to: "/uikit/indexManagement",  
+                },  
+            ],  
+        });  
+    }  
+
+  return baseMenu;  
+});   
 </script>
 
 <template>
